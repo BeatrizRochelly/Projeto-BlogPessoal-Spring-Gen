@@ -1,44 +1,49 @@
 package org.generation.blogpessoal.model;
 
-import java.util.Date;
+
+import java.time.LocalDateTime;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.UpdateTimestamp;
 
-@Entity
-@Table(name= "postagem")
-public class postagem {
+
+@Entity //para criar a tabela
+@Table(name= "tb_postagens") //para nomear a tabela
+public class PostagemModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
-	@NotNull
+	@NotBlank(message = "O atributo título é obrigatório e não pode utilizar espaços em branco!") //geralmente não usa para número
 	@Size(min = 5, max = 100)
 	private String titulo;
 	
-	@NotNull
-	@Size(min = 10, max = 500)
+	@NotNull 
+	@Size(min = 10, max = 1000)
 	private String texto;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date data= new java.sql.Date(System.currentTimeMillis());
+	@UpdateTimestamp //Entra automaticamente a hora, mês e ano (segundos)
+	private LocalDateTime data;
 
-	public long getId() {
+	
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
+
 
 	public String getTitulo() {
 		return titulo;
@@ -56,13 +61,15 @@ public class postagem {
 		this.texto = texto;
 	}
 
-	public Date getData() {
+	public LocalDateTime getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
+
+	
 	
 	
 
