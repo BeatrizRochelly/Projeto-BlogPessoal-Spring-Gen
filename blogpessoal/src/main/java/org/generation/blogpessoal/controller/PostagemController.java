@@ -34,7 +34,7 @@ public class PostagemController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<PostagemModel> GetById(@PathVariable long id) {
+	public ResponseEntity<PostagemModel> GetById(@PathVariable Long id) {
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 		
 		//map aplica o valor na resposta.

@@ -8,12 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity //para criar a tabela
@@ -25,17 +28,20 @@ public class PostagemModel {
 	private Long id;
 	
 	@NotBlank(message = "O atributo título é obrigatório e não pode utilizar espaços em branco!") //geralmente não usa para número
-	@Size(min = 5, max = 100)
+	@Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 05 e no máximo 100 caracteres")
 	private String titulo;
 	
-	@NotNull 
-	@Size(min = 10, max = 1000)
+	@NotNull (message = "O atributo texto é Obrigatório!")
+	@Size(min = 10, max = 1000, message = "O atributo texto deve conter no mínimo 10 e no máximo 500 caracteres")
 	private String texto;
 	
 	@UpdateTimestamp //Entra automaticamente a hora, mês e ano (segundos)
 	private LocalDateTime data;
 
-	
+	@ManyToOne//tipo de relacionamento
+	@JsonIgnoreProperties("postagem")
+	private TemaModel tema;
+
 	public Long getId() {
 		return id;
 	}
@@ -43,7 +49,6 @@ public class PostagemModel {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public String getTitulo() {
 		return titulo;
@@ -69,6 +74,15 @@ public class PostagemModel {
 		this.data = data;
 	}
 
+	public TemaModel getTema() {
+		return tema;
+	}
+
+	public void setTema(TemaModel tema) {
+		this.tema = tema;
+	}
+	
+	
 	
 	
 	
