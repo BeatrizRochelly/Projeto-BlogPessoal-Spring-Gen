@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.UpdateTimestamp;
@@ -27,11 +26,11 @@ public class PostagemModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message = "O atributo título é obrigatório e não pode utilizar espaços em branco!") //geralmente não usa para número
+	@NotBlank(message = "O atributo título é obrigatório!") //geralmente não usa para número
 	@Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 05 e no máximo 100 caracteres")
 	private String titulo;
 	
-	@NotNull (message = "O atributo texto é Obrigatório!")
+	@NotBlank (message = "O atributo texto é Obrigatório!")
 	@Size(min = 10, max = 1000, message = "O atributo texto deve conter no mínimo 10 e no máximo 500 caracteres")
 	private String texto;
 	
@@ -41,6 +40,10 @@ public class PostagemModel {
 	@ManyToOne//tipo de relacionamento
 	@JsonIgnoreProperties("postagem")
 	private TemaModel tema;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private UsuarioModel usuario;
 
 	public Long getId() {
 		return id;
@@ -81,10 +84,14 @@ public class PostagemModel {
 	public void setTema(TemaModel tema) {
 		this.tema = tema;
 	}
-	
-	
-	
-	
-	
 
+	public UsuarioModel getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioModel usuario) {
+		this.usuario = usuario;
+	}
+
+	
 }

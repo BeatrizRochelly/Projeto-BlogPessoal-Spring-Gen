@@ -31,6 +31,7 @@ public class TemaModel {
 	@OneToMany(mappedBy="tema", cascade = CascadeType.ALL) //tema vai comandar tudo no quesito de relacionamento
 	@JsonIgnoreProperties("tema")
     private List<PostagemModel> postagem;
+	
 
 	public Long getId() {
 		return id;
