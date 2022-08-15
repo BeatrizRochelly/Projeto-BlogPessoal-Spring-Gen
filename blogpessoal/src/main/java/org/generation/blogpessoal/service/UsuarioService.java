@@ -18,9 +18,9 @@ import org.springframework.web.server.ResponseStatusException;
 public class UsuarioService {
 
 	 @Autowired
-	    private UsuarioRepository usuarioRepository;
+	 private UsuarioRepository usuarioRepository;
 
-	    public Optional<UsuarioModel> cadastrarUsuario(UsuarioModel usuario) {
+	 public Optional<UsuarioModel> cadastrarUsuario(UsuarioModel usuario) {
 
 	        if (usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent())
 	            return Optional.empty();

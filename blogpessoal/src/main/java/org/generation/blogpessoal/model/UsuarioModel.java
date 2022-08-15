@@ -41,6 +41,17 @@ public class UsuarioModel {
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)//tem que ser Remove porque ao deletar uma postagem você apaga também o usuário ser estivesse ALL.
 	@JsonIgnoreProperties("usuario")
 	private List<PostagemModel> postagem;
+	
+	public UsuarioModel(Long id, String nome, String usuario, String senha, String foto) {
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.foto = foto;
+	}
+	
+	public UsuarioModel() { }
+	
 
 	public Long getId() {
 		return id;
@@ -90,6 +101,4 @@ public class UsuarioModel {
 		this.postagem = postagem;
 	}
 
-	
-	
 }
